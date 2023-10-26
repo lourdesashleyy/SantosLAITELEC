@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lourd\\source\\repos\\SantosLAITELEC1C\\SantosLAITELEC1C\\SantosLAITELEC1C.csproj",
+      "projectUniqueName": "C:\\Users\\lourd\\Source\\Repos\\SantosLAITELEC\\SantosLAITELEC1C\\SantosLAITELEC1C.csproj",
       "projectName": "SantosLAITELEC1C",
-      "projectPath": "C:\\Users\\lourd\\source\\repos\\SantosLAITELEC1C\\SantosLAITELEC1C\\SantosLAITELEC1C.csproj",
+      "projectPath": "C:\\Users\\lourd\\Source\\Repos\\SantosLAITELEC\\SantosLAITELEC1C\\SantosLAITELEC1C.csproj",
       "packagesPath": "C:\\Users\\lourd\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lourd\\source\\repos\\SantosLAITELEC1C\\SantosLAITELEC1C\\obj\\",
+      "outputPath": "C:\\Users\\lourd\\Source\\Repos\\SantosLAITELEC\\SantosLAITELEC1C\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\lourd\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -64,7 +64,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

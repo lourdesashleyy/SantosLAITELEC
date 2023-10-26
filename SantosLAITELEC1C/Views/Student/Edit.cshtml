@@ -1,0 +1,17 @@
+﻿﻿@{
+    ViewData["Title"] = "Edit Details";
+}
+@model Student;
+<h1>Edit Student</h1>
+<form asp-action="Edit" method="post">
+    <label asp-for="StudentId">ID:</label><br>
+    <input asp-for="StudentId" disabled><br>
+    <label asp-for="StudentFirstName">First name:</label><br>
+    <input asp-for="StudentFirstName"><br>
+    <label asp-for="StudentLastName">Last name:</label><br>
+    <input asp-for="StudentLastName"><br>
+    <label asp-for="Course">Course:</label><br>
+    <select asp-for="Course" asp-items="Html.GetEnumSelectList(typeof(Course))"></select><br>
+    <input type="submit" value="Edit">
+    <button type="button" onclick="history.back()">Cancel</button>
+</form>

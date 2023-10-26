@@ -1,53 +1,94 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SantosLAITELEC1C.Models;
+using SantosLAITELEC1C.Services;
 
 namespace SantosLAITELEC1C.Controllers
 {
     public class InstructorController : Controller
     {
-        List<Instructor> InstructorList = new List<Instructor>
+            private readonly IMyFakeDataService _fakeData;
+            public InstructorController(IMyFakeDataService fakeData)
             {
-                new Instructor()
+                _fakeData = fakeData;
+            }
+            public IActionResult Index()
+            {
+
+                return View(_fakeData.InstructorList);
+            }
+            public IActionResult ShowDetails(int id)
+            {
+                //Search for the student whose id matches the given id
+                Instructor? instructor = _fakeData.InstructorList.FirstOrDefault(st => st.InstructorId == id);
+
+                if (instructor != null)//was an student found?
+                    return View(instructor);
+
+                return NotFound();
+            }
+            [HttpGet]
+            public IActionResult Delete(int id)
+            {
+                //Search for the student whose id matches the given id
+                Instructor? instructor = _fakeData.InstructorList.FirstOrDefault(st => st.InstructorId == id);
+
+                if (instructor != null)//was an student found?
+                    return View(instructor);
+
+                return NotFound();
+            }
+
+            [HttpPost]
+            public IActionResult Delete(Instructor deleteInstructor)
+            {
+                //Search for the student whose id matches the given id
+                Instructor? instructor = _fakeData.InstructorList.FirstOrDefault(st => st.InstructorId == deleteInstructor.InstructorId);
+
+                if (instructor != null)//was a student found?
                 {
-                    InstructorId = 1,InstructorFirstName = "Gabriel",
-                    InstructorLastName = "Montano", 
-                    Rank = Rank.Instructor, 
-                    HiringDate = DateTime.Parse("2022-08-26"), 
-                    IsTenured = true
-                },
-                new Instructor()
-                {
-                    InstructorId = 2, 
-                    InstructorFirstName = "Robert", 
-                    InstructorLastName = "Santos", 
-                    Rank = Rank.AssistantProfessor, 
-                    HiringDate = DateTime.Parse("2022-08-07"), 
-                    IsTenured = true
-                },
-                new Instructor()
-                {
-                    InstructorId = 2, InstructorFirstName = "Jeanny", 
-                    InstructorLastName = "Garcia", 
-                    Rank = Rank.Instructor, HiringDate = 
-                    DateTime.Parse("2022-09-07"), 
-                    IsTenured = true
+                    _fakeData.InstructorList.Remove(instructor);
+                    return RedirectToAction("Index");
                 }
-            };
-        public IActionResult Index()
-        {
 
-            return View(InstructorList);
-        }
+                return NotFound();
+            }
+            [HttpGet]
+            public IActionResult AddInstructor()
+            {
+                return View();
+            }
+            [HttpPost]
+            public IActionResult AddInstructor(Instructor newInstructor)
+            {
+                _fakeData.InstructorList.Add(newInstructor);
+                return RedirectToAction("Index");
+            }
+            [HttpGet]
+            public IActionResult Edit(int id)
+            {
+                //Search for the student whose id matches the given id
+                Instructor? instructor = _fakeData.InstructorList.FirstOrDefault(st => st.InstructorId == id);
 
-        public IActionResult ShowDetail(int id)
-        {
-            //Search for the student whose id matches the given id
-            Instructor? instructor = InstructorList.FirstOrDefault(st => st.InstructorId == id);
+                if (instructor != null)//was an student found?
+                    return View(instructor);
 
-            if (instructor != null)//was an instructor found?
-                return View(instructor);
+                return NotFound();
+            }
 
-            return NotFound();
+            [HttpPost]
+            public IActionResult Edit(Instructor editInstructor)
+            {
+                Instructor? instructor = _fakeData.InstructorList.FirstOrDefault(st => st.InstructorId == editInstructor.InstructorId);
+                if (instructor != null)
+                {
+                    instructor.InstructorId = editInstructor.InstructorId;
+                    instructor.InstructorFirstName = editInstructor.InstructorFirstName;
+                    instructor.InstructorLastName = editInstructor.InstructorLastName;
+                    instructor.Rank = editInstructor.Rank;
+                    instructor.HiringDate = editInstructor.HiringDate;
+                    instructor.IsTenured = editInstructor.IsTenured;
+                }
+                return RedirectToAction("Index");
+            }
         }
     }
-}

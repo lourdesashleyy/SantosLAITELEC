@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SantosLAITELEC1C.Models;
+using SantosLAITELEC1C.Services;
 using System.Diagnostics;
 
 namespace SantosLAITELEC1C.Controllers

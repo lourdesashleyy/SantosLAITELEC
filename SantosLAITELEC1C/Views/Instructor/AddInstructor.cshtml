@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "AddInstructor";
+}
+@model Instructor;
+<h1>Add Instructor</h1>
+<form asp-action="AddInstructor" method="post">
+    <label asp-for="InstructorId">ID:</label><br>
+    <input asp-for="InstructorId"><br>
+    <label asp-for="InstructorFirstName">First name:</label><br>
+    <input asp-for="InstructorFirstName"><br>
+    <label asp-for="InstructorLastName">Last name:</label><br>
+    <input asp-for="InstructorLastName"><br>
+    <label asp-for="Rank">Rank:</label><br>
+    <select asp-for="Rank" asp-items="Html.GetEnumSelectList(typeof(Rank))"></select><br>
+    <label asp-for="HiringDate">Hiring Date:</label><br>
+    <input asp-for="HiringDate"><br>
+    <label asp-for="IsTenured">Is Tenured?:</label><br>
+    <input asp-for="IsTenured"><br><br>
+    <input type="submit" value="Submit">
+    <button type="button" onclick="history.back()">Cancel</button>
+</form>

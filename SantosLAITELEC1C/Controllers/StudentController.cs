@@ -1,57 +1,94 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SantosLAITELEC1C.Models;
+using SantosLAITELEC1C.Services;
 
 namespace SantosLAITELEC1C.Controllers
 {
     public class StudentController : Controller
     {
-        List<Student> StudentList = new List<Student>
-            {
-                new Student()
-                {
-                    StudentId= 1,
-                    StudentFirstName = "Lourdes Ashley",
-                    StudentLastName = "Santos", 
-                    Course = Course.BSIT, 
-                    AdmissionDate = DateTime.Parse("2021-08-26"), 
-                    GPA = 1.5, 
-                    Email = "lourdesashleysantos@gmail.com"
-                },
-                new Student()
-                {
-                    StudentId= 2,StudentFirstName = "Alyssa Marie",
-                    StudentLastName = "Romen", 
-                    Course = Course.BSIS, 
-                    AdmissionDate = DateTime.Parse("2021-08-07"), 
-                    GPA = 1, 
-                    Email = "alyssaromen@gmail.com"
-                },
-                new Student()
-                {
-                    StudentId= 3,
-                    StudentFirstName = "Luis Enrico",
-                    StudentLastName = "Granada", 
-                    Course = Course.BSCS, 
-                    AdmissionDate = DateTime.Parse("2021-01-25"), 
-                    GPA = 1.5, 
-                    Email = "luisgranada@gmail.com"
-                }
-            };
+        private readonly IMyFakeDataService _fakeData;
+        public StudentController(IMyFakeDataService fakeData)
+        {
+            _fakeData = fakeData;
+        }
         public IActionResult Index()
         {
 
-            return View(StudentList);
+            return View(_fakeData.StudentList);
         }
 
-        public IActionResult ShowDetail(int id)
+        public IActionResult ShowDetails(int id)
         {
             //Search for the student whose id matches the given id
-            Student? student = StudentList.FirstOrDefault(st => st.StudentId == id);
+            Student? student = _fakeData.StudentList.FirstOrDefault(st => st.StudentId == id);
 
             if (student != null)//was an student found?
                 return View(student);
 
             return NotFound();
+        }
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            //Search for the student whose id matches the given id
+            Student? student = _fakeData.StudentList.FirstOrDefault(st => st.StudentId == id);
+
+            if (student != null)//was an student found?
+                return View(student);
+
+            return NotFound();
+        }
+
+        [HttpPost]
+        public IActionResult Delete(Student deleteStudent)
+        {
+            //Search for the student whose id matches the given id
+            Student? student = _fakeData.StudentList.FirstOrDefault(st => st.StudentId == deleteStudent.StudentId);
+
+            if (student != null)//was an student found?
+            {
+                _fakeData.StudentList.Remove(student);
+                return RedirectToAction("Index");
+            }
+
+            return NotFound();
+        }
+
+        [HttpGet]
+        public IActionResult AddStudent()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddStudent(Student newStudent)
+        {
+            _fakeData.StudentList.Add(newStudent);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            //Search for the student whose id matches the given id
+            Student? student = _fakeData.StudentList.FirstOrDefault(st => st.StudentId == id);
+
+            if (student != null)//was an student found?
+                return View(student);
+
+            return NotFound();
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Student editStudent)
+        {
+            Student? student = _fakeData.StudentList.FirstOrDefault(st => st.StudentId == editStudent.StudentId);
+            if (student != null)
+            {
+                student.StudentId = editStudent.StudentId;
+                student.StudentFirstName = editStudent.StudentFirstName;
+                student.StudentLastName = editStudent.StudentLastName;
+                student.Course = editStudent.Course;
+            }
+            return RedirectToAction("Index");
         }
     }
 }
