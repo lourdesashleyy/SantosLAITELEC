@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\SantosLAITELEC1C.props" />
-</Project>
